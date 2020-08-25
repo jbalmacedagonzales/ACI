@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ACI.Application.Identity.Contracts.Services\ACI.Application.Identity.Contracts.Services.csproj" />
+    <ProjectReference Include="..\ACI.Infrastructure.CrossCutting.Identity.Contracts\ACI.Infrastructure.CrossCutting.Identity.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>

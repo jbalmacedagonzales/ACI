@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ACI.Application.Identity.DTOs\ACI.Application.Identity.DTOs.csproj" />
+    <ProjectReference Include="..\ACI.Application.Identity.Services\ACI.Application.Identity.Services.csproj" />
+    <ProjectReference Include="..\ACI.Infrastructure.CrossCutting.Identity.Contracts\ACI.Infrastructure.CrossCutting.Identity.Contracts.csproj" />
+    <ProjectReference Include="..\ACI.Infrastructure.CrossCutting.Identity.Services\ACI.Infrastructure.CrossCutting.Identity.Services.csproj" />
+    <ProjectReference Include="..\ACI.Infrastructure.CrossCutting.Security\ACI.Infrastructure.CrossCutting.Security.csproj" />
+    <ProjectReference Include="..\ACI.Infrastructure.Data.Identity\ACI.Infrastructure.Data.Identity.csproj" />
+  </ItemGroup>
+
+</Project>
