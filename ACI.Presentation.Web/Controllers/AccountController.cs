@@ -59,7 +59,7 @@ namespace ACI.Presentation.Web.Controllers
                             IsPersistent = model.RememberPassword,
                             ExpiresUtc = DateTime.UtcNow.AddMinutes(30)
                         });
-                    RedirectToLocal(returnUrl);
+                    return RedirectToLocal(returnUrl);
                 }
                 else
                     Handler.Error("The account email is not confirmed", this);
@@ -67,6 +67,16 @@ namespace ACI.Presentation.Web.Controllers
             else
                 Handler.Error("The email or password is not valid", this);
             return View();
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                return RedirectToAction("Login", "Account");
+            }
+            return RedirectToAction("NotFoundPage", "Error");
         }
 
 
