@@ -24,8 +24,8 @@ namespace ACI.Infrastructure.Data.Identity.Tests
 
             UserEntity user = new UserEntity(
                Guid.NewGuid(),
-               "José",
-               "Balmaceda",
+               "user001",
+               "user001bbbb",
                "sample@sample.com",
                "sample@sample.com".ToUpper(),
                true,

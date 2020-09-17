@@ -24,11 +24,11 @@ namespace ACI.Infrastructure.CrossCutting.Identity.Services
             GC.SuppressFinalize(this);
         }
 
-        public async Task<bool> SendAsync(string to, string body)
+        public async Task<bool> SendAsync(string to, string body, string subject)
         {
             string from = _configuration["MailSettings:from"];
             string password = _configuration["MailSettings:password"];
-            string subject = _configuration["MailSettings:subject"];
+            //string subject = _configuration["MailSettings:subject"];
 
             using (SmtpClient client = new SmtpClient())
             {

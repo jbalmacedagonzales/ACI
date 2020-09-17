@@ -142,6 +142,11 @@ namespace ACI.Application.Identity.Services
 
 
         #region 
+        /*
+        *  Only for the demo these methods were not implemented.
+           However, every interface must implement all the methods it has.
+           Don't forget that please.
+        */
         public Task<UserDTO> FindByIdAsync(string userId, CancellationToken cancellationToken)
         {
             throw new System.NotImplementedException();

@@ -11,8 +11,8 @@ namespace ACI.Domain.Entities.Tests
         {
             UserEntity user = new UserEntity(
                 Guid.NewGuid(),
-                "José",
-                "Balmaceda",
+                "user01",
+                "user01aaaaa",
                 "sample@sample.com",
                 "sample@sample.com".ToUpper(),
                 true,

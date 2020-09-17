@@ -8,7 +8,7 @@ namespace ACI.Infrastructure.CrossCutting.Identity.Services.Tests
         public void SendEmail()
         {
             EmailSender emailSender = new EmailSender();
-            var result = emailSender.SendAsync("josebalmacedape@outlook.es", "This is a test...").Result;
+            var result = emailSender.SendAsync("sample@sample.com", "This is a test...", "...").Result;
             Assert.IsTrue(result, "error in send email");
         }
     }

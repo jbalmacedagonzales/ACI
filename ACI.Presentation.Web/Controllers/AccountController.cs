@@ -105,7 +105,7 @@ namespace ACI.Presentation.Web.Controllers
                 }, Request.Scheme);
 
                 var create = await _userManager.CreateAsync(user, Security.Decrypt(model.PasswordHash));
-                if (create.Succeeded && await _emailSender.SendAsync(model.Email, activationLink))
+                if (create.Succeeded && await _emailSender.SendAsync(model.Email, activationLink, "Confirm your email account"))
                     ViewBag.Succeeded = 200;
                 else
                 {
@@ -129,6 +129,77 @@ namespace ACI.Presentation.Web.Controllers
                 return RedirectToAction("Login", "Account");
             }
             return RedirectToAction("NotFoundPage", "Error");
+        }
+
+
+        [HttpGet]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgotPassword(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                Handler.Error("The email field is required", this);
+                return View();
+            }
+
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user != null)
+            {
+                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                var resetUrl = Url.Action("ResetPassword", "Account", new { token = Security.Encrypt(token), email = Security.Encrypt(email) }, Request.Scheme);
+                await _emailSender.SendAsync(email, resetUrl, "Reset Password");
+                ViewBag.Succeeded = 200;
+            }
+            else
+            {
+                Handler.Error("The email is not valid", this);
+            }
+
+            return View();
+        }
+
+
+        [HttpGet]
+        public IActionResult ResetPassword(string token, string email)
+        {
+            var model = new ResetPasswordModel
+            {
+                Token = token,
+                Email = email
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResetPassword(ResetPasswordModel model)
+        {
+            if (!ModelState.IsValid) return View(model);
+
+            var user = await _userManager.FindByEmailAsync(Security.Decrypt(model.Email));
+            if (user != null)
+            {
+                var result = await _userManager.ResetPasswordAsync(user, Security.Decrypt(model.Token), Security.Decrypt(model.NewPasswordHash));
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        Handler.Error(error.Description, this);
+                    }
+                }
+            }
+
+            return View();
         }
     }
 }
